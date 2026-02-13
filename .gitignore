@@ -9,6 +9,9 @@ wheels/
 # Virtual environments
 .venv
 
+# environment viriables
+.ENV
 
 # custom
 brain_storming.txt
+

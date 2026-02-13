@@ -40,6 +40,10 @@ INSTALLED_APPS = [
 
     # django browser reload
     "django_browser_reload",
+
+    # custom apps
+    "app.core",
+    "apps.account",
 ]
 
 MIDDLEWARE = [

@@ -5,6 +5,11 @@ build/
 dist/
 wheels/
 *.egg-info
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.pkl
 
 # Virtual environments
 .venv
@@ -15,3 +20,24 @@ wheels/
 # custom
 brain_storming.txt
 
+# Django
+*.log
+*.pot
+*.py[cod]
+local_settings.py
+
+# Ignore database files (if using SQLite locally)
+db.sqlite3
+
+# Ignore media/uploads (user-generated content)
+media/
+staticfiles/  # if you use collectstatic for deployment
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Keep migrations, but ignore __pycache__ inside them
+**/migrations/__pycache__/

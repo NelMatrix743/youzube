@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django_browser_reload",
 
     # custom apps
-    "app.core",
+    "apps.core",
     "apps.account",
 ]
 

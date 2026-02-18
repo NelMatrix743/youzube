@@ -25,5 +25,5 @@ urlpatterns = [
 
     # custom app url
     path('', include("apps.core.urls")),
-    path('account', include("apps.account.urls")),
+    path('account', include("apps.accounts.urls")),
 ]

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block %} YouZube {% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/messages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/buttons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    
+    <!-- Navigation Bar -->
+     <nav class="navbar">
+
+        <a href="/" class="navbar-brand">
+            <span class="brand-icon">&#9654;</span>
+            YouZube
+        </a>
+
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'video:upload' %}" class="nav-link btn-upload">
+                        Upload
+                    </a>
+                </li>
+                <li>
+                    <span class="nav-username">
+                        {{ user.username }}
+                    </span>
+                </li>
+                <li>
+                    <form method="post" action="{% url 'accounts:logout' %}" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link btn-outline logout-btn">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+
+            {% else %}
+                <li>
+                    <a href="{% url 'accounts:login' %}" class="nav-link">
+                        Sign In
+                    </a>
+                    <a href="{% url 'accounts:register' %}" class="nav-link btn-primary">
+                        Sign Up
+                    </a>
+                </li>
+            
+            {% endif %}
+        </ul>
+
+     </nav>
+    
+</body>
+</html>

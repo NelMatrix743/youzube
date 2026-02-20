@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Register - YouZube {% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Create an Account</h1>
+            <p>Join YouZube today and start "Youzubing" with others around the globe!</p>
+        </div>
+
+        <form method="post" class="auth-form" action="">
+
+            {% csrf_token %}
+
+            <!-- handle form errors -->
+            {% if form.errors %}
+
+                <ul class="error-list">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>
+                                {{ error }}
+                            </li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li> {{ error }} </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <!-- actual registration form -->
+            <div class="form-group">
+                <label for="id_first_name"> First Name </label>
+                <input type="text" name="first_name" 
+                id="id_first_name" 
+                class="form-input"
+                placeholder="First name *"
+                required autofocus>      
+            </div>
+
+            <div class="form-group">
+                <label for="id_last_name"> Last Name </label>
+                <input type="text" name="last_name" 
+                id="id_last_name" 
+                class="form-input"
+                placeholder="Last name *"
+                required>      
+            </div>
+
+            <div class="form-group">
+                <label for="id_username"> Username </label>
+                <input type="text" name="username" 
+                id="id_username" 
+                class="form-input"
+                placeholder="Username *"
+                required autofocus>      
+            </div>
+
+            <div class="form-group">
+                <label for="id_email"> Email </label>
+                <input type="email" name="email" 
+                id="id_email" 
+                class="form-input"
+                placeholder="Email *"
+                required autofocus>      
+            </div>
+
+            <div class="form-group">
+                <label for="id_phone_number"> Phone Number (optional) </label>
+                <input type="tel" name="phone_number" 
+                id="id_phone_number" 
+                class="form-input"
+                placeholder="Phone Number"
+                required autofocus>      
+            </div>
+
+            <div class="form-group">
+                <label for="id_password1"> Password </label>
+                <input type="password" name="password1" 
+                id="id_password1" 
+                class="form-input"
+                placeholder="Password *"
+                required autofocus>      
+            </div>
+            <span class="helper-text">
+                It should be at 8 characters in length, alphanumeric
+            </span>
+
+            <div class="form-group">
+                <label for="id_password2"> Confirm Password </label>
+                <input type="password" name="password2" 
+                id="id_password2" 
+                class="form-input"
+                placeholder="Confirm Password *"
+                required autofocus>      
+            </div>
+
+            <button type="submit" class="btn-submit">Create Account</button>
+        </form>
+
+        <div class="auth-footer">
+            Do you already have an account? <a href="{% url 'accounts:login' %}">Sign In</a>
+        </div>
+    </div>
+
+{% endblock %}

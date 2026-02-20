@@ -10,7 +10,7 @@ class UserProfile(models.Model):
         on_delete=models.CASCADE,
         related_name="profile"  # lets you access it as user.profile.phone_number
     )
-    phone_number: models.CharField = models.CharField(max_length=20)
+    phone_number: models.CharField = models.CharField(max_length=20, blank=True)
 
     def __str__(self) -> str:
         return f"""

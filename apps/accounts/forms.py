@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class SystemUserCreationForm(UserCreationForm):
-    phone_number: forms.CharField = forms.CharField(max_length=20)
+    phone_number: forms.CharField = forms.CharField(max_length=20, required=False)
 
     class Meta:
         model: User = User

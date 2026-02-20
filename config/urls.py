@@ -24,5 +24,6 @@ urlpatterns = [
     path("__reload__/", include("django_browser_reload.urls")),
 
     # custom app url
+    path('', include("apps.videos.urls")),
     path("accounts/", include("apps.accounts.urls")),
 ]

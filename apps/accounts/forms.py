@@ -22,8 +22,14 @@ class SystemUserCreationForm(UserCreationForm):
         user = super().save(commit=False)
 
         # phone number
-        user.profile.phone_number = self.cleaned_data["phone_number"]
+        #user.profile.phone_number = self.cleaned_data["phone_number"]
         
         if commit:
             user.save()
+            # Create profile manually
+            from .models import UserProfile
+            UserProfile.objects.create(
+                user=user,
+                phone_number=self.cleaned_data["phone_number"]
+            )
         return user

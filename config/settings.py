@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     "django_browser_reload",
 
     # custom apps
-    "apps.core",
     "apps.accounts",
+    "apps.videos",
 ]
 
 MIDDLEWARE = [

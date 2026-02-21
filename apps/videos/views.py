@@ -71,3 +71,14 @@ def video_upload_view(request):
             "error" : str(error)
         })
     
+
+@login_required
+def video_submission_view(request):
+    return render(
+        request,
+        "videos/upload.html",
+        {
+            "form" : VideoUploadForm()
+        }
+    )
+

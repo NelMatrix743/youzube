@@ -78,13 +78,13 @@
 
             <div class="form-group">
                 <label for="customThumbnail">Thumbnail (optional)</label>
-                <label for="file-input-wrapper thumb-wrapper" for="customThumbnail">
-                    <img id="thumbPreview" src="" alt="">
+                <label class="file-input-wrapper thumb-wrapper" for="customThumbnail">
+                    <img id="thumbPreview">
                     <span id="thumb-label">Click to Select a thumbnail</span>
-                    <input type="file" id="customThumbnail" accept="image/*" style="display:none;" name="" id="">
-                    <input type="hidden" name="thumbnail_data" id="thumbnailData">
-                    <span>Leave empty to auto-generate from your video</span>
                 </label>
+                <input type="file" id="customThumbnail" accept="image/*" style="display:none;">
+                <input type="hidden" name="thumbnail_data" id="thumbnailData">
+                <span class="help-text">Leave empty to auto-generate from your video</span>
             </div>
 
             <button type="submit" class="btn-submit" id="submitBtn">Ulpoad Video</button>

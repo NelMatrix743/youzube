@@ -110,6 +110,11 @@
     let thumbnailImagePreview = document.getElementById("thumbPreview");
     let thumbnailImageData = document.getElementById("thumbnailData");
 
+    videoInputBox.onchange = (e) => {
+        const file = e.target.files[0];
+        videoInputLabel.textContent = file ? `${file.name}` : "Click to select a video";
+    }
+
 
 </script>
 {% endblock %}

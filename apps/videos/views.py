@@ -51,7 +51,7 @@ def video_upload_view(request):
                 pass
          
         video_entry = Video.objects.create(
-            User=request.user,
+            user=request.user,
             title=form.cleaned_data["title"],
             description=form.cleaned_data["description"],
             file_id=video_result["file_id"],

@@ -155,7 +155,7 @@
         window.onbeforeunload = () => "Upload in Progess";
 
         try {
-            const response = await fetch("{% utl 'apps.vidoes:upload_submit' %}", {
+            const response = await fetch("{% url 'apps.videos:upload_submit' %}", {
                 method : "POST",
                 body : new FormData(e.target)
             });

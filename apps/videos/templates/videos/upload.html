@@ -103,12 +103,22 @@
     // video elements
     let videoInputBox = document.getElementById("id_video_file");
     let videoInputLabel = document.getElementById("video-label");
+    let videoTitle = document.getElementById("id_title");
 
     // thumbnail elements
     let thumbnailInputBox = document.getElementById("customThumbnail");
     let thumbnailInputLabel = document.getElementById("thumb-label");
     let thumbnailImagePreview = document.getElementById("thumbPreview");
     let thumbnailImageData = document.getElementById("thumbnailData");
+
+    // upload indication, statuses, and error display
+    let uploadOverElmnt = document.getElementById("uploadOverlay");
+    let uploadStatusElmnt = document.getElementById("uploadStatus");
+    let errorContainerElmnt = document.getElementById("errorContainer");
+
+    // map upload form
+    let formUpload = document.getElementById("uploadForm");
+    let formSubmitBtn = document.getElementById("submitBtn");
 
     videoInputBox.onchange = (e) => {
         const file = e.target.files[0];
@@ -131,7 +141,6 @@
 
         reader.readAsDataURL(file);
     }
-
 
 </script>
 {% endblock %}

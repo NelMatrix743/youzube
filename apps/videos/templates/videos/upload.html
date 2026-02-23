@@ -165,7 +165,7 @@
 
             if(data.success){
                 uploadStatusElmnt.textContent = "Ulpoad complete!";
-                setTimeout(() => location.href = "{% url 'apps.videos:list' %}");
+                setTimeout(() => location.href = "{% url 'apps.videos:list' %}", 500);
             }
             else {
                 throw new Error(data.error);

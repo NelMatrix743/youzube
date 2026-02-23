@@ -36,9 +36,6 @@ class Video(models.Model):
     num_of_likes = models.PositiveBigIntegerField(
         default=0
     )
-    num_of_likes = models.PositiveBigIntegerField(
-        default=0
-    )
 
     created_at = models.DateTimeField(
         auto_now_add=True

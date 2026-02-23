@@ -82,7 +82,7 @@
                 <label for="customThumbnail">Thumbnail (optional)</label>
                 <label class="file-input-wrapper thumb-wrapper" for="customThumbnail">
                     <img id="thumbPreview">
-                    <span id="thumb-label">Click to Select a thumbnail</span>
+                    <span id="thumb-label">Click to select a thumbnail</span>
                 </label>
                 <input type="file" id="customThumbnail" accept="image/*" style="display:none;">
                 <input type="hidden" name="thumbnail_data" id="thumbnailData">
@@ -99,6 +99,17 @@
 
 {% block extra_js %}
 <script>
+
+    // video elements
+    let videoInputBox = document.getElementById("id_video_file");
+    let videoInputLabel = document.getElementById("video-label");
+
+    // thumbnail elements
+    let thumbnailInputBox = document.getElementById("customThumbnail");
+    let thumbnailInputLabel = document.getElementById("thumb-label");
+    let thumbnailImagePreview = document.getElementById("thumbPreview");
+    let thumbnailImageData = document.getElementById("thumbnailData");
+
 
 </script>
 {% endblock %}

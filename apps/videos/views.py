@@ -89,3 +89,12 @@ def video_list_view(request):
         "videos" : videos
     }
     return render(request, "videos/list.html", context)
+
+
+def video_detail_view(request, video_id):
+    video: Video = get_object_or_404(Video.objects, id=video_id)
+
+    context: dict[str, Video] = {
+        "video" : video
+    }
+    return render(request, "videos/detail.html", context)

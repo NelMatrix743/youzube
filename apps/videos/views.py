@@ -82,3 +82,10 @@ def video_submission_view(request):
         }
     )
 
+
+def video_list_view(request):
+    videos: any = Video.object.all()
+    context: dict[str, any] = {
+        "videos" : videos
+    }
+    return render(request, "videos/list.html", context)

@@ -72,7 +72,11 @@
                 <label class="file-input-wrapper" for="id_video_file">
                     <span id="video-label">Click to select a video file</span>
                 </label>
-                <input type="file" name="video_file" id="id_video_file" accept="video/*">
+                <input
+                type="file"
+                name="video_file"
+                id="id_video_file"
+                accept="video/*" required style="display: none;">
                 <span class="help-text">Max File Size: 500MB; (MP4, WEBM, MOV, AVI)</span>
             </div>
 

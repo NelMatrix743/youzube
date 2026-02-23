@@ -8,7 +8,7 @@ imgkit_client = ImageKit()
 
 def upload_video(file_data: bytes, file_name: str, folder_name: str = "videos") -> dict[str, any]:
     response = imgkit_client.files.upload(
-        file_data=file_data,
+        file=file_data,
         file_name=file_name,
         folder=folder_name,
         public_key=imagekit_public_key

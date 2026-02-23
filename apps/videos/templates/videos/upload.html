@@ -142,5 +142,47 @@
         reader.readAsDataURL(file);
     }
 
+    formUpload.onsubmit = async (e) => {
+        e.preventDefault();
+
+        if(!(videoInputBox.files.length && videoTitle.value.trim()))
+            return undefined;
+
+        uploadOverElmnt.classList.add("active");
+        formSubmitBtn.disabled = true;
+        errorContainerElmnt.innerHTML = "";
+
+        window.onbeforeunload = () => "Upload in Progess";
+
+        try {
+            const response = await fetch("{% utl 'apps.vidoes:upload_submit' %}", {
+                method : "POST",
+                body : new FormData(e.target)
+            });
+            
+            const data = await response.json();
+            window.onbeforeunload = null;
+
+            if(data.success){
+                uploadStatusElmnt.textContent = "Ulpoad complete!";
+                setTimeout(() => location.href = "{% url 'apps.videos:list' %}");
+            }
+            else {
+                throw new Error(data.error);
+            }
+        }
+        catch (error) {
+            window.onbeforeunload = null;
+
+            uploadOverElmnt.classList.remove("active");
+            formSubmitBtn.disabled = false; 
+            errorContainerElmnt.innerHTML = `
+                <ul class="error-list">
+                    <li>${error.message || "Upload failed"}</li>
+                </ul>
+            `;
+        }
+    }
+
 </script>
 {% endblock %}

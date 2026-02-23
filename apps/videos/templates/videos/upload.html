@@ -115,6 +115,23 @@
         videoInputLabel.textContent = file ? `${file.name}` : "Click to select a video";
     }
 
+    thumbnailInputBox.onchange = (e) => {
+        const file = e.target.files[0];
+
+        if(!file)
+            return; 
+
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            thumbnailImagePreview.src = ev.target.result;
+            thumbnailImagePreview.classList.add("visible");
+            thumbnailInputLabel.style.display = "none";
+            thumbnailImageData.value = ev.target.result;
+        }
+
+        reader.readAsDataURL(file);
+    }
+
 
 </script>
 {% endblock %}

@@ -1,5 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from imagekit_client import (
+    get_optimized_video_url,
+    get_streaming_url,
+    get_thumbnail_url
+)
 
 
 # Create your models here.
@@ -50,3 +55,10 @@ class Video(models.Model):
     
     def __str__(self) -> str:
         return self.title
+    
+
+    @property
+    def display_thumbnail_url(self):
+        if self.thumbnail_url and ("/thumbnails/" in self.thumbnail_url):
+            return self.thumbnail_url
+        return self.generated_thumbnail_url

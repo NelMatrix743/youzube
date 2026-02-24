@@ -38,3 +38,10 @@ def upload_thumbnail(file_data: bytes, file_name: str, folder_name: str = "thumb
         "file_id" : response.file_id,
         "url" : response.url,
     }
+
+
+def get_optimized_video_url(base_url: str) -> str:
+    tr_parameter: str = "&tr=q-50,f-auto"
+    return (
+        base_url + tr_parameter if '?' in base_url else base_url + '?' + tr_parameter
+    )

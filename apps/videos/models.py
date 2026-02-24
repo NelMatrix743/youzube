@@ -70,3 +70,10 @@ class Video(models.Model):
             return ""
         return get_thumbnail_url(self.video_url)
     
+
+    @property
+    def streaming_url(self):
+        if not self.video_url:
+            return ""
+        return get_streaming_url(self.video_url)
+    

@@ -45,3 +45,9 @@ def get_optimized_video_url(base_url: str) -> str:
     return (
         base_url + tr_parameter if '?' in base_url else base_url + '?' + tr_parameter
     )
+
+
+def get_streaming_url(base_url: str) -> str:
+    return f"{base_url}/ik-master.m3u8?tr=sr-360_480_720_1080"
+
+

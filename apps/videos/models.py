@@ -62,3 +62,11 @@ class Video(models.Model):
         if self.thumbnail_url and ("/thumbnails/" in self.thumbnail_url):
             return self.thumbnail_url
         return self.generated_thumbnail_url
+    
+
+    @property
+    def generated_thumbnail_url(self):
+        if not self.video_url:
+            return ""
+        return get_thumbnail_url(self.video_url)
+    

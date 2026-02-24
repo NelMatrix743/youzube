@@ -77,3 +77,9 @@ class Video(models.Model):
             return ""
         return get_streaming_url(self.video_url)
     
+
+    @property
+    def optmized_video_url(self):
+        if not self.video_url:
+            return ""
+        return get_optimized_video_url(self.video_url)

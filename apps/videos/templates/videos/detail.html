@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ video.title }} - YouZube {% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/videos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/videoplayer.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="video-player-container">
+
+        <div class="video-player">
+            <video id="video-player" controls preload="none" poster="{{ video.display_thumbnail_url }}"></video>
+            <video id="video-error" class="video-error" style="display: none;">
+                <span class="error-icon">&#9888;</span>
+                <p>Video Unavailable</p>
+                <small>this video file could not be loaded</small>
+            </video>
+        </div>
+
+        <div class="video-details">
+            <h1>{{ video.title }}</h1>
+
+            <!-- video statistics -->
+
+            <div class="video-stats">
+                <span class="video-stats-left">
+                    {{ video.num_of_views }}  |  {{ video.created_at|date:"M d, Y" }}
+                </span>
+                <div class="video-actions">
+                    <button
+                    class="vote-btn"
+                    data-vote="like"
+                    onclick="">
+                       👍 <span id="like-count">{{ video.num_of_likes }}</span>
+                    </button>
+                   <button
+                    class="vote-btn"
+                    data-vote="dislike"
+                    onclick="">
+                       👎 <span id="dislike-count">{{ video.likes }}</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- video channel information -->
+            <div class="video-channel">
+                <div class="channel-avatar">
+                    {{ video.user.username|slice:":1" }}
+                </div>
+                <a href="{% url 'apps.videos:channel' video.user.username %}" class="channel-name">
+                    {{ video.user.username }}
+                </a>
+            </div>
+
+            {% if video.description %}
+                <p class="video.description">{{ video.description }}</p>
+            {% endif %}
+
+            {% if request.user == video.user %}
+                <div class="video-owner-actions">
+                    <button class="delete-btn">Delete</button>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}

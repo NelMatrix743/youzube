@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from imagekit_client import (
+from .imagekit_client import (
     get_optimized_video_url,
     get_streaming_url,
     get_thumbnail_url

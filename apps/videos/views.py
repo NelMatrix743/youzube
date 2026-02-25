@@ -7,7 +7,8 @@ from .models import Video
 from .forms import VideoUploadForm
 from .imagekit_client import (
     upload_video, 
-    upload_thumbnail
+    upload_thumbnail,
+    delete_video_from_imagekit
 )
 
 
@@ -81,6 +82,25 @@ def video_submission_view(request) -> HttpResponse:
             "form" : VideoUploadForm()
         }
     )
+
+
+@login_required
+@require_POST
+def video_delete_view(request, video_id) -> JsonResponse:
+    video = get_object_or_404(Video, id=video_id, user=request.user)
+
+    try:
+        delete_video_from_imagekit(video.file_id)
+    except Exception as e:
+        print(e)
+        pass
+
+    video.delete()
+
+    return JsonResponse({
+        "success" : True,
+        "message" : "video deleted successfullly"
+    })
 
 
 def video_list_view(request) -> HttpResponse:

@@ -5,6 +5,7 @@ from .views import (
     video_list_view,
     video_detail_view,
     video_delete_view,
+    video_vote_view,
     channel_view
 )
 
@@ -17,5 +18,6 @@ urlpatterns = [
     path("upload/submit/", video_upload_view, name="upload_submit"),
     path("videos/<int:video_id>", video_detail_view, name="detail"),
     path("channel/<str:username>/", channel_view, name="channel"),
-    path("<int:video_id>/delete/", video_delete_view, name="delete")
+    path("<int:video_id>/delete/", video_delete_view, name="delete"),
+    path("<int:video/vote>", video_vote_view, name="vote")
 ]

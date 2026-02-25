@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST
 
-from .models import Video
+from .models import Video, VideoLike
 from .forms import VideoUploadForm
 from .imagekit_client import (
     upload_video, 
@@ -121,6 +121,63 @@ def video_detail_view(request, video_id) -> HttpResponse:
         "video" : video
     }
     return render(request, "videos/detail.html", context)
+
+
+@login_required
+@require_POST
+def video_vote_view(request, video_id):
+    video: Video = get_object_or_404(Video, id=video_id)
+    vote_type: str = request.POST.get("vote")
+
+    user_vote: int = 0
+
+    if vote_type not in ["like", "dislike"]:
+        return JsonResponse({
+            "success" : False,
+            "error" : "invalid vote",
+        }, status=400)
+
+    value = (
+        VideoLike.LIKE if vote_type == "like" else VideoLike.DISLIKE
+    )
+
+    existing_vote = (
+        VideoLike.objects.filter(user=request.user, video=video).first()
+    )
+
+    if existing_vote:
+        if existing_vote.value == value:
+            if value == VideoLike.LIKE:
+                video.likes -= 1
+            else:
+                video.dislikes -= 1
+            existing_vote.delete()
+            user_vote = None
+        else:
+            if value == VideoLike.LIKE:
+                video.likes += 1
+                video.dislikes -= 1
+            else:
+                video.likes -= 1
+                video.dislikes += 1
+            existing_vote.value = value
+            existing_vote.save()
+            user_vote = value
+    else:
+        VideoLike.objects.create(user=request.user, video=video, value=value)
+        if value == VideoLike.LIKE:
+            video.likes += 1
+        else:
+            video.dislikes += 1
+        user_vote = value
+
+    video.save(update_fields=["likes", "dislikes"])
+
+    return JsonResponse({
+        "likes" : video.likes, 
+        "dislikes" : video.dislikes,
+        "user_vote" : user_vote
+    })
 
 
 def channel_view(request, username) -> HttpResponse:

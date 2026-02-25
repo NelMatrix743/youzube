@@ -63,7 +63,7 @@
 
             {% if request.user == video.user %}
                 <div class="video-owner-actions">
-                    <button class="delete-btn">Delete</button>
+                    <button class="delete-btn" onclick="deleteVideoCallback({{ video.id }})">Delete</button>
                 </div>
             {% endif %}
         </div>
@@ -76,6 +76,28 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.5.14/hls.js"></script>
     <script>
+
+        function deleteVideoCallback(videoID){
+            if(!confirm("Are you sure about deleting this video?"))
+                return undefined;
+            
+            const CSRF_TOKEN = `{{ csrf_token }}`;
+            fetch(`/${videoID}/delete/`, {
+                method : "POST",
+                headers : {
+                    "X-CSRFToken" : CSRF_TOKEN
+                }
+            })
+            .then((r) => r.json())
+            .then((data) => {
+                if(data.success)
+                    window.location.href = "{% url 'apps.videos:list' %}";
+                else 
+                    alert(data.error || "Failed_1: could not delete this video");
+            })
+            .catch(() => alert("Failed_2: could not delete this video"));
+        }
+        
 
         const videoPlayer = document.getElementById("video-player");
         const videoError = document.getElementById("video-error");

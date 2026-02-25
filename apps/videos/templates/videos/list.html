@@ -15,7 +15,7 @@
             <a href="{% url 'apps.videos:detail' video.id %}" class="video-card">
                 <div class="video-thumbnail">
                     <img 
-                    src="{{ video.thumbnail_url }}"
+                    src="{{ video.display_thumbnail_url }}"
                     alt="{{ video.title }}"
                     loading="lazy">
                     <span class="play-icon">&#9654;</span>

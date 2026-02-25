@@ -36,6 +36,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    "unfold",  # better admin panel interface
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

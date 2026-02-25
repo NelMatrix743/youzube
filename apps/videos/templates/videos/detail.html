@@ -71,3 +71,36 @@
     </div>
 
 {% endblock %}
+
+{% block extra_js %}
+
+    <script src="https://cdnjsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+
+        const videoPlayer = document.getElementById("video-player");
+        const videoError = document.getElementById("video-error");
+
+        const streamingUrl = "{{ video.streaming_url }}";
+        const fallbackUrl = "{{ video.optmized_video_url }}";
+
+        if(Hls.isSupported()){
+            const hls = new Hls({
+                startLevel : -1,
+                capLevelToPlayerSize : true,
+            });
+
+            hla.loadSource(streamingUrl);
+            hls.attachMedia(videoPlayer);
+            hls.on(Hls.Events.ERROR, (event, data) => {
+                if(data.fatal)
+                videoPlayer.src = fallbackUrl;
+            })
+        } else if(videoPlayer.canPlayType("application/vnd.apple.mpegurl")){
+            videoPlayer.src = streamingUrl;
+        } else {
+            videoPlayer.src = fallbackUrl;
+        }
+
+    </script>
+
+{% endblock %}

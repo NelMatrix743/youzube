@@ -1,3 +1,6 @@
+from datetime import date, datetime
+from typing import Literal
+
 from django.db import models
 from django.contrib.auth.models import User
 from .imagekit_client import (
@@ -11,46 +14,46 @@ from .imagekit_client import (
 
 class Video(models.Model):
     
-    user = models.ForeignKey(
+    user: models.ForeignKey = models.ForeignKey(
           User,
           on_delete=models.CASCADE,
           related_name="videos"
     )
      
-    title = models.CharField(
+    title: models.CharField = models.CharField(
         max_length=200
     )
-    description = models.TextField(
+    description: models.TextField = models.TextField(
         blank=True
     )
 
-    file_id = models.CharField(
+    file_id: models.CharField = models.CharField(
         max_length=200
     )
-    video_url = models.URLField(
+    video_url: models.URLField = models.URLField(
         max_length=500
     )
-    thumbnail_url = models.URLField(
+    thumbnail_url: models.URLField = models.URLField(
         max_length=500,
         blank=True
     )
 
-    num_of_views = models.PositiveBigIntegerField(
+    num_of_views: models.PositiveBigIntegerField = models.PositiveBigIntegerField(
         default=0
     )
-    num_of_likes = models.PositiveBigIntegerField(
+    num_of_likes: models.PositiveBigIntegerField = models.PositiveBigIntegerField(
         default=0
     )
 
-    created_at = models.DateTimeField(
+    created_at: models.DateTimeField = models.DateTimeField(
         auto_now_add=True
     )
-    updated_at = models.DateTimeField(
+    updated_at: models.DateTimeField = models.DateTimeField(
         auto_now=True
     )
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering: list[str] = ["-created_at"]
 
     
     def __str__(self) -> str:
@@ -58,28 +61,28 @@ class Video(models.Model):
     
 
     @property
-    def display_thumbnail_url(self):
+    def display_thumbnail_url(self) -> str:
         if self.thumbnail_url and ("/thumbnails/" in self.thumbnail_url):
             return self.thumbnail_url
         return self.generated_thumbnail_url
     
 
     @property
-    def generated_thumbnail_url(self):
+    def generated_thumbnail_url(self) -> str:
         if not self.video_url:
             return ""
         return get_thumbnail_url(self.video_url)
     
 
     @property
-    def streaming_url(self):
+    def streaming_url(self) -> str:
         if not self.video_url:
             return ""
         return get_streaming_url(self.video_url)
     
 
     @property
-    def optmized_video_url(self):
+    def optmized_video_url(self) -> str:
         if not self.video_url:
             return ""
         return get_optimized_video_url(self.video_url)
@@ -95,23 +98,23 @@ class VideoLike(models.Model):
         (DISLIKE, "Dislike")
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    video = models.ForeignKey(
+    user: models.ForeignKey= models.ForeignKey(User, on_delete=models.CASCADE)
+    video: models.ForeignKey = models.ForeignKey(
         Video,
         on_delete=models.CASCADE,
         related_name="user_likes"
     )
-    value = models.SmallIntegerField(choices=LIKE_CHOICES)
-    created_at = models.DateField(auto_now_add=True)
+    value: models.SmallIntegerField = models.SmallIntegerField(choices=LIKE_CHOICES)
+    created_at: models.DateField = models.DateField(auto_now_add=True)
 
 
     class Meta:
         
-        unique_together = ["user", "video"]
+        unique_together: list[str] = ["user", "video"]
 
     
-    def __str__(self):
-        action = (
+    def __str__(self) -> str:
+        action: Literal['liked'] | Literal['disliked'] = (
             "liked" if self.value == self.LIKE else "disliked"
         )
         return f"{self.user.username} {action} {self.video.title}"

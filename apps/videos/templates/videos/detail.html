@@ -89,7 +89,7 @@
                 capLevelToPlayerSize : true,
             });
 
-            hla.loadSource(streamingUrl);
+            hls.loadSource(streamingUrl);
             hls.attachMedia(videoPlayer);
             hls.on(Hls.Events.ERROR, (event, data) => {
                 if(data.fatal)

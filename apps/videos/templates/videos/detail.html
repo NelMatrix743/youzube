@@ -101,6 +101,11 @@
             videoPlayer.src = fallbackUrl;
         }
 
+        videoPlayer.addEventListener("error", () => {
+            videoPlayer.style.display = "none";
+            videoError.style.display = "flex";
+        })
+
     </script>
 
 {% endblock %}

@@ -114,6 +114,9 @@ def video_list_view(request) -> HttpResponse:
 def video_detail_view(request, video_id) -> HttpResponse:
     video: Video = get_object_or_404(Video.objects, id=video_id)
 
+    video.num_of_views += 1
+    video.save(update_fields=["views"])
+
     context: dict[str, Video] = {
         "video" : video
     }

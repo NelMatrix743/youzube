@@ -1,5 +1,9 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin
 from .models import Video
 
+
 # Register your models here.
-admin.site.register(Video)
+@admin.register(Video)
+class VideoAdmin(ModelAdmin):
+    pass

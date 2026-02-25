@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST
 
 from .models import Video
@@ -14,7 +14,7 @@ from .imagekit_client import (
 # Create your views here.
 @login_required
 @require_POST
-def video_upload_view(request):
+def video_upload_view(request) -> JsonResponse:
     form = VideoUploadForm(request.POST, request.FILES)
 
     if not form.is_valid():
@@ -73,7 +73,7 @@ def video_upload_view(request):
     
 
 @login_required
-def video_submission_view(request):
+def video_submission_view(request) -> HttpResponse:
     return render(
         request,
         "videos/upload.html",
@@ -83,7 +83,7 @@ def video_submission_view(request):
     )
 
 
-def video_list_view(request):
+def video_list_view(request) -> HttpResponse:
     videos: any = Video.objects.all()
     context: dict[str, any] = {
         "videos" : videos
@@ -91,10 +91,18 @@ def video_list_view(request):
     return render(request, "videos/list.html", context)
 
 
-def video_detail_view(request, video_id):
+def video_detail_view(request, video_id) -> HttpResponse:
     video: Video = get_object_or_404(Video.objects, id=video_id)
 
     context: dict[str, Video] = {
         "video" : video
     }
     return render(request, "videos/detail.html", context)
+
+
+def channel_view(request, username) -> HttpResponse:
+    videos = Video.objects.filter(user__username=username)
+    return render(request, "videos/channel.html", {
+        "videos" : videos,
+        "channel_name" : username
+    })

@@ -53,3 +53,9 @@ def get_streaming_url(base_url: str) -> str:
 
 def get_thumbnail_url(base_url: str, width: int = 480, height: int = 270) -> str:
     return f"{base_url}/ik-thumbnail.jpg"
+
+
+def delete_video_from_imagekit(video_file_id: str) -> bool:
+    if imgkit_client.files.delete(file_id=video_file_id):
+        return True
+    return False

@@ -6,6 +6,20 @@ imagekit_public_key: str | None = os.environ.get("IMAGE_PUBLIC_kEY")
 imgkit_client = ImageKit()
 
 
+def _get_watermark_transformation(username: str) -> tuple[str]:
+    return (
+        "l-text",
+        f"i-{username}",
+        "lfo-bottom_left",
+        "lx-10, ly-10",
+        "fs-16",
+        "co-FFFF00",
+        "bg-FFFFFF03",
+        "pa-4_8",
+        "l-end"
+    )
+
+
 def upload_video(file_data: bytes, file_name: str, folder_name: str = "videos") -> dict[str, any]:
     response = imgkit_client.files.upload(
         file=file_data,

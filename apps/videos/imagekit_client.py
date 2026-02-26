@@ -65,8 +65,12 @@ def get_streaming_url(base_url: str) -> str:
     return f"{base_url}/ik-master.m3u8?tr=sr-360_480_720_1080"
 
 
-def get_thumbnail_url(base_url: str, width: int = 480, height: int = 270) -> str:
-    return f"{base_url}/ik-thumbnail.jpg"
+def get_thumbnail_url(base_url: str, username: str | None = None) -> str:
+    return f"{base_url}/ik-thumbnail.jpg?tr={_get_watermark_transformation(username)}"
+
+
+def add_image_watermark(base_url: str, username: str | None = None) -> str:
+    return f"{base_url}?tr={_get_watermark_transformation(username)}"
 
 
 def delete_video_from_imagekit(video_file_id: str) -> bool:

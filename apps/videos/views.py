@@ -155,34 +155,34 @@ def video_vote_view(request, video_id):
     if existing_vote:
         if existing_vote.value == value:
             if value == VideoLike.LIKE:
-                video.likes -= 1
+                video.num_of_likes -= 1
             else:
-                video.dislikes -= 1
+                video.num_of_dislikes -= 1
             existing_vote.delete()
             user_vote = None
         else:
             if value == VideoLike.LIKE:
-                video.likes += 1
-                video.dislikes -= 1
+                video.num_of_likes += 1
+                video.num_of_dislikes -= 1
             else:
-                video.likes -= 1
-                video.dislikes += 1
+                video.num_of_likes -= 1
+                video.num_of_dislikes += 1
             existing_vote.value = value
             existing_vote.save()
             user_vote = value
     else:
         VideoLike.objects.create(user=request.user, video=video, value=value)
         if value == VideoLike.LIKE:
-            video.likes += 1
+            video.num_of_likes += 1
         else:
-            video.dislikes += 1
+            video.num_of_dislikes += 1
         user_vote = value
 
-    video.save(update_fields=["likes", "dislikes"])
+    video.save(update_fields=["num_of_likes", "num_of_dislikes"])
 
     return JsonResponse({
-        "likes" : video.likes, 
-        "dislikes" : video.dislikes,
+        "likes" : video.num_of_likes, 
+        "dislikes" : video.num_of_dislikes,
         "user_vote" : user_vote
     })
 

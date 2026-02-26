@@ -76,7 +76,7 @@ class Video(models.Model):
     def generated_thumbnail_url(self) -> str:
         if not self.video_url:
             return ""
-        return get_thumbnail_url(self.video_url)
+        return get_thumbnail_url(self.video_url, self.user.username)
     
 
     @property

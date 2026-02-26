@@ -33,13 +33,13 @@
                 </span>
                 <div class="video-actions">
                     <button
-                    class="vote-btn {% if user_vote === 1 %} active {% endif %}"
+                    class="vote-btn {% if user_vote == 1 %} active {% endif %}"
                     data-vote="like"
                     onclick="vote({{ video.id }}, 'like')">
                        👍 <span id="like-count">{{ video.num_of_likes }}</span>
                     </button>
                    <button
-                    class="vote-btn {% if user_vote === -1 %} active {% endif %}"
+                    class="vote-btn {% if user_vote == -1 %} active {% endif %}"
                     data-vote="dislike"
                     onclick="vote({{ video.id }}, 'dislike')">
                        👎 <span id="dislike-count">{{ video.likes }}</span>

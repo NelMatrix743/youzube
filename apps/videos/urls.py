@@ -19,5 +19,5 @@ urlpatterns = [
     path("videos/<int:video_id>", video_detail_view, name="detail"),
     path("channel/<str:username>/", channel_view, name="channel"),
     path("<int:video_id>/delete/", video_delete_view, name="delete"),
-    path("<int:video>/vote/", video_vote_view, name="vote")
+    path("<int:video_id>/vote/", video_vote_view, name="vote")
 ]

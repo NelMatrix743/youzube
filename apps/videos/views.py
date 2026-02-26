@@ -115,7 +115,7 @@ def video_detail_view(request, video_id) -> HttpResponse:
     video: Video = get_object_or_404(Video.objects, id=video_id)
 
     video.num_of_views += 1
-    video.save(update_fields=["views"])
+    video.save(update_fields=["num_of_views"])
 
     user_vote: int | None = None
     if request.user.is_authenticated:

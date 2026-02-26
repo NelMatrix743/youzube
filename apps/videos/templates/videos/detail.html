@@ -101,7 +101,7 @@
 
         function vote(videoID, voteType){
             {% if not user.is_authenticated %}
-            window.location.href = "{% url 'apps.accounts:login' %}"
+            window.location.href = "{% url 'accounts:login' %}"
             return undefined;
             {% endif %}
  

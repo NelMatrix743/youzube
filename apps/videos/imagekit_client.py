@@ -66,11 +66,11 @@ def get_streaming_url(base_url: str) -> str:
 
 
 def get_thumbnail_url(base_url: str, username: str | None = None) -> str:
-    return f"{base_url}/ik-thumbnail.jpg?tr={_get_watermark_transformation(username)}"
+    return f"{base_url}/ik-thumbnail.jpg?tr={str.join('', _get_watermark_transformation(username))}"
 
 
 def add_image_watermark(base_url: str, username: str | None = None) -> str:
-    return f"{base_url}?tr={_get_watermark_transformation(username)}"
+    return f"{base_url}?tr={str.join('', _get_watermark_transformation(username))}"
 
 
 def delete_video_from_imagekit(video_file_id: str) -> bool:

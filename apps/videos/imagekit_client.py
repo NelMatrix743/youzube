@@ -11,10 +11,10 @@ def _get_watermark_transformation(username: str) -> tuple[str]:
         "l-text,",
         f"i-{username},",
         "lfo-bottom_left,",
-        "lx-10, ly-10,",
-        "fs-64,",
+        "lx-10,ly-10,",
+        "fs-32,",
         "co-FFFF00,",
-        "bg-FFFFFF03,",
+        "bg-000000,",
         "pa-4_8,",
         "l-end"
     )

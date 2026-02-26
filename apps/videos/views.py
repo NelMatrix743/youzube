@@ -41,7 +41,7 @@ def video_upload_view(request) -> JsonResponse:
         )
 
         if thumbnail_data and thumbnail_data.startswith("data:image"):
-            base_name = video_file.name.resplit('.', 1)[0]
+            base_name = video_file.name.rsplit('.', 1)[0]
             try:
                 thumbnail_result = upload_thumbnail(
                     file_data=thumbnail_data,

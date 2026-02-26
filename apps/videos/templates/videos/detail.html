@@ -101,19 +101,19 @@
 
         function vote(videoID, voteType){
             {% if not user.is_authenticated %}
-                window.location.href = "{% url 'app.accounts:login' %}"
-                return undefined;
+            window.location.href = "{% url 'apps.accounts:login' %}"
+            return undefined;
             {% endif %}
-
+ 
             const CSRF_TOKEN = `{{ csrf_token }}`;
 
             fetch(`/${videoID}/vote/`, {
                 method : "POST",
                 headers : {
                     "Content-Type" : "application/x-www-form-urlencoded", 
-                    "X=CSRFToken" : CSRF_TOKEN,
-                    body : `vote=${voteType}`
-                }
+                    "X-CSRFToken" : CSRF_TOKEN,
+                },
+                body : `vote=${voteType}`
             })
             .then(r => r.json())
             .then((data) => {
@@ -125,8 +125,8 @@
                 if(data.user_vote === 1)
                     document.querySelector('[data-vote="like"]').classList.add("active")
                 if(data.user_vote === -1)
-                    document.querySelector('[data-vote="dislike"]').classList.add("active")
-            })
+                    document.querySelector("[data-vote='dislike']").classList.add("active")
+            });
         }
         
 

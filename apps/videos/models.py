@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 from .imagekit_client import (
     get_optimized_video_url,
     get_streaming_url,
-    get_thumbnail_url
+    get_thumbnail_url,
+    add_image_watermark
 )
 
 
@@ -67,7 +68,7 @@ class Video(models.Model):
     @property
     def display_thumbnail_url(self) -> str:
         if self.thumbnail_url and ("/thumbnails/" in self.thumbnail_url):
-            return self.thumbnail_url
+            return add_image_watermark(self.thumbnail_url, self.user.username)
         return self.generated_thumbnail_url
     
 

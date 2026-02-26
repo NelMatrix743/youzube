@@ -117,6 +117,13 @@ def video_detail_view(request, video_id) -> HttpResponse:
     video.num_of_views += 1
     video.save(update_fields=["views"])
 
+    user_vote: int | None = None
+    if request.user.is_authenticated:
+        like = VideoLike.objects.filter(user=request.user, video=video).first()
+        if like:
+            user_vote = like.value
+
+
     context: dict[str, Video] = {
         "video" : video
     }

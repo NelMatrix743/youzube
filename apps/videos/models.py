@@ -45,6 +45,10 @@ class Video(models.Model):
         default=0
     )
 
+    num_of_dislikes: models.PositiveBigIntegerField = models.PositiveBigIntegerField(
+        default=0
+    )
+
     created_at: models.DateTimeField = models.DateTimeField(
         auto_now_add=True
     )
